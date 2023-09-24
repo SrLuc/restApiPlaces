@@ -1,9 +1,8 @@
-const handleError = () => {
-  if (res.headersSent) {
-    return next(error);
+class HttpError extends Error {
+  constructor(message, errorCode) {
+    super(message);
+    this.code = errorCode;
   }
-  res.status(error.code || 500);
-  res.json({ message: error.message || "An unknown error occurred" });
-};
+}
 
-module.exports = handleError;
+module.exports = HttpError;
