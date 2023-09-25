@@ -1,5 +1,6 @@
 const DUMMY_PLACES = require("../models/data-model.js");
 const HttpError = require("../models/error-model.js");
+const uuid = require("uuid").v1;
 
 const testPlace = async (req, res, next) => {
   res.json({ message: "Place router Works!" });
@@ -32,6 +33,7 @@ const getPlaceByUserId = async (req, res, next) => {
 const createPlace = async (req, res, next) => {
   const { title, description, coordinates, address, creator } = req.body;
   const newPlace = {
+    id: uuid(),
     title,
     description,
     location: coordinates,
