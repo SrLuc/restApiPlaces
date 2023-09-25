@@ -4,6 +4,7 @@ const PlaceController = require("../controllers/place-controller.js");
 
 route.get("/placetest", PlaceController.testPlace);
 route.get("/place", PlaceController.getAllPlaces);
-route.get("/place/:pid", PlaceController.getPlaceById);
+route.get("/user/:uid", PlaceController.getPlaceByUserId);
+route.post("/place", PlaceController.createPlace);
 
 module.exports = route;

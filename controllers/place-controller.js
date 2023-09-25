@@ -14,10 +14,10 @@ const getAllPlaces = async (req, res, next) => {
   }
 };
 
-const getPlaceById = async (req, res, next) => {
-  const placeId = req.params.pid;
+const getPlaceByUserId = async (req, res, next) => {
+  const userId = req.params.uid;
   const place = DUMMY_PLACES.find((p) => {
-    return p.id === placeId;
+    return p.creator === userId;
   });
 
   if (!place) {
@@ -29,8 +29,23 @@ const getPlaceById = async (req, res, next) => {
   res.json({ place });
 };
 
+const createPlace = async (req, res, next) => {
+  const { title, description, coordinates, address, creator } = req.body;
+  const newPlace = {
+    title,
+    description,
+    location: coordinates,
+    address,
+    creator,
+  };
+
+  DUMMY_PLACES.push(newPlace);
+  res.status(201).json({ newPlace });
+};
+
 module.exports = {
   testPlace,
   getAllPlaces,
-  getPlaceById,
+  getPlaceByUserId,
+  createPlace,
 };
