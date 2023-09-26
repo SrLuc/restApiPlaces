@@ -16,9 +16,9 @@ const getAllPlaces = async (req, res, next) => {
 };
 
 const getPlaceByUserId = async (req, res, next) => {
-  const userId = req.params.uid;
+  const userId = req.params.pid;
   const place = DUMMY_PLACES.find((p) => {
-    return p.creator === userId;
+    return p.id === userId;
   });
 
   if (!place) {
@@ -31,12 +31,12 @@ const getPlaceByUserId = async (req, res, next) => {
 };
 
 const createPlace = async (req, res, next) => {
-  const { title, description, coordinates, address, creator } = req.body;
+  const { title, description, location, address, creator } = req.body;
   const newPlace = {
     id: uuid(),
     title,
     description,
-    location: coordinates,
+    coordinates: location,
     address,
     creator,
   };
