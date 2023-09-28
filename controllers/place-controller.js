@@ -31,14 +31,16 @@ const getPlaceByUserId = async (req, res, next) => {
 };
 
 const createPlace = async (req, res, next) => {
+
   const { title, description, location, address, creator } = req.body;
+
   const newPlace = {
     id: uuid(),
-    title,
-    description,
+    title: title,
+    description: description,
     coordinates: location,
-    address,
-    creator,
+    address: address,
+    creator: creator,
   };
 
   DUMMY_PLACES.push(newPlace);

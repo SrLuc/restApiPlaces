@@ -5,7 +5,7 @@ const DUMMY_PLACES = [
     description:
       "Singapore is a city-state in Southeast Asia. Founded as a British trading colony in 1819, since independence it has become one of the world's most prosperous countries and boasts the world's busiest port.",
     address: "Singapore, Singapore",
-    location: {
+    coordinates: {
       lat: 1.3521,
       lng: 103.8198,
     },
@@ -18,7 +18,7 @@ const DUMMY_PLACES = [
     description:
       "Malaysia is a Southeast Asian country occupying parts of the Malay Peninsula and the island of Borneo. It's known for its beaches, rainforests and mix of Malay, Chinese, Indian and European cultural influences.",
     address: "Malaysia, Malaysia",
-    location: {
+    coordinates: {
       lat: 4.2105,
       lng: 101.9758,
     },
@@ -31,7 +31,7 @@ const DUMMY_PLACES = [
     description:
       "Indonesia, officially the Republic of Indonesia, is a country in Southeast Asia and Oceania, between the Indian and Pacific oceans. It consists of more than seventeen thousand islands, including Sumatra, Java, Sulawesi, and parts of Borneo and New Guinea.",
     address: "Indonesia, Indonesia",
-    location: {
+    coordinates: {
       lat: -0.7893,
       lng: 113.9213,
     },
