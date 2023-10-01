@@ -31,15 +31,14 @@ const getPlaceByUserId = async (req, res, next) => {
 };
 
 const createPlace = async (req, res, next) => {
-
-  const { title, description, location, address, creator } = req.body;
+  const { title, description, address, location, creator } = req.body;
 
   const newPlace = {
     id: uuid(),
     title: title,
     description: description,
-    coordinates: location,
     address: address,
+    coordinates: location,
     creator: creator,
   };
 
@@ -47,9 +46,12 @@ const createPlace = async (req, res, next) => {
   res.status(201).json({ newPlace });
 };
 
+const updatePlace = async (req, res, next) => {};
+
 module.exports = {
   testPlace,
   getAllPlaces,
   getPlaceByUserId,
   createPlace,
+  updatePlace,
 };
