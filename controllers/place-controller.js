@@ -43,23 +43,22 @@ const createPlace = async (req, res, next) => {
   };
 
   DUMMY_PLACES.push(newPlace);
-  res.status(201).json({ newPlace });
+  res.status(201).json({ place:newPlace });
 };
 
 const updatePlace = async (req, res, next) => {
+  const placeID = req.params.pid;
   const { title, description } = req.body;
-  const placeId = req.params.pid;
 
-  const updatedPlace = { ...DUMMY_PLACES.find(({ id }) => id === placeId) };
-  const placeIndex = DUMMY_PLACES.findIndex(({ id }) => id === placeId);
+  const updatedPlace = { ...DUMMY_PLACES.find(({ id }) => id === placeID) };
+  const placeIndex = DUMMY_PLACES.findIndex(({ id }) => id === placeID);
+
   updatedPlace.title = title;
   updatedPlace.description = description;
 
   DUMMY_PLACES[placeIndex] = updatedPlace;
 
-  res.status(200).json({ updatedPlace });
-  
-  console.log(placeIndex);
+  res.status(200).json({ place: updatedPlace });
 };
 
 const deletePlace = async (req, res, next) => {};
