@@ -17,8 +17,8 @@ const getAllPlaces = async (req, res, next) => {
 
 const getPlaceByUserId = async (req, res, next) => {
   const userId = req.params.pid;
-  const place = DUMMY_PLACES.find((p) => {
-    return p.id === userId;
+  const place = DUMMY_PLACES.find(({ id }) => {
+    return id === userId;
   });
 
   if (!place) {
@@ -46,7 +46,23 @@ const createPlace = async (req, res, next) => {
   res.status(201).json({ newPlace });
 };
 
-const updatePlace = async (req, res, next) => {};
+const updatePlace = async (req, res, next) => {
+  const { title, description } = req.body;
+  const placeId = req.params.pid;
+
+  const updatedPlace = { ...DUMMY_PLACES.find(({ id }) => id === placeId) };
+  const placeIndex = DUMMY_PLACES.findIndex(({ id }) => id === placeId);
+  updatedPlace.title = title;
+  updatedPlace.description = description;
+
+  DUMMY_PLACES[placeIndex] = updatedPlace;
+
+  res.status(200).json({ updatedPlace });
+  
+  console.log(placeIndex);
+};
+
+const deletePlace = async (req, res, next) => {};
 
 module.exports = {
   testPlace,
@@ -54,4 +70,5 @@ module.exports = {
   getPlaceByUserId,
   createPlace,
   updatePlace,
+  deletePlace,
 };
