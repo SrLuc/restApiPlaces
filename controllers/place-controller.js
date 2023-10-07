@@ -2,10 +2,6 @@ const DUMMY_PLACES = require("../models/data-model.js");
 const HttpError = require("../models/error-model.js");
 const uuid = require("uuid").v1;
 
-const testPlace = async (req, res, next) => {
-  res.json({ message: "Place router Works!" });
-};
-
 const getAllPlaces = async (req, res, next) => {
   const places = DUMMY_PLACES;
   res.json({ places });
@@ -15,19 +11,33 @@ const getAllPlaces = async (req, res, next) => {
   }
 };
 
-const getPlaceByUserId = async (req, res, next) => {
-  const userId = req.params.pid;
+const getPlaceById = (async = (req, res, next) => {
+  const placeId = req.params.pid;
+
   const place = DUMMY_PLACES.find(({ id }) => {
-    return id === userId;
+    return id === placeId;
+  });
+
+  if (!place) {
+    return next(new HttpError("Could not find Place for the Place iD", 404));
+  }
+
+  res.status(200).json({ place });
+});
+
+const getPlaceByUserId = async (req, res, next) => {
+  const userID = req.params.uid;
+  const place = DUMMY_PLACES.find(({ creator }) => {
+    return creator === userID;
   });
 
   if (!place) {
     return next(
-      new HttpError("Could not find a place for the provided id.", 404)
+      new HttpError("Could not find place for the provided user id.", 404)
     );
   }
 
-  res.json({ place });
+  res.status(200).json({ place });
 };
 
 const createPlace = async (req, res, next) => {
@@ -43,7 +53,7 @@ const createPlace = async (req, res, next) => {
   };
 
   DUMMY_PLACES.push(newPlace);
-  res.status(201).json({ place:newPlace });
+  res.status(201).json({ place: newPlace });
 };
 
 const updatePlace = async (req, res, next) => {
@@ -61,11 +71,18 @@ const updatePlace = async (req, res, next) => {
   res.status(200).json({ place: updatedPlace });
 };
 
-const deletePlace = async (req, res, next) => {};
+const deletePlace = async (req, res, next) => {
+  const placeID = req.params.pid;
+  const placeIndex = DUMMY_PLACES.findIndex(({ id }) => id === placeID);
+
+  DUMMY_PLACES.splice(placeIndex, 1);
+
+  res.status(200).json({ message: "Deleted Place." });
+};
 
 module.exports = {
-  testPlace,
   getAllPlaces,
+  getPlaceById,
   getPlaceByUserId,
   createPlace,
   updatePlace,
