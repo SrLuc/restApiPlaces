@@ -8,7 +8,7 @@ const placeRoutes = require("./routes/place-routes.js");
 app.use(express.json());
 app.use(handleError());
 app.use("/place", placeRoutes);
-app.use(userRoutes);
+app.use("/user", userRoutes);
 app.use(unsupportedRoutes);
 
 module.exports = app;
