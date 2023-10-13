@@ -11,7 +11,7 @@ route.get("/user/:uid", PlaceController.getPlaceByUserId);
 
 route.post("/", validator.createPlaceValidation, PlaceController.createPlace);
 
-route.put("/:pid", PlaceController.updatePlace);
+route.put("/:pid", validator.updatePlaceValidation, PlaceController.updatePlace);
 
 route.delete("/:pid", PlaceController.deletePlace);
 

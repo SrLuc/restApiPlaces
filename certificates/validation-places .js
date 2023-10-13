@@ -6,6 +6,12 @@ const createPlaceValidation = [
   check("description").isLength({ min: 5 }),
 ];
 
+const updatePlaceValidation = [
+  check("title").not().isEmpty(),
+  check("description").isLength({ min: 5 }),
+];
+
 module.exports = {
   createPlaceValidation,
+  updatePlaceValidation,
 };

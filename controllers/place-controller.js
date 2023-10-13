@@ -64,6 +64,12 @@ const createPlace = async (req, res, next) => {
 };
 
 const updatePlace = async (req, res, next) => {
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    console.log(validationErrors);
+    return next(new HttpError("Invalid Inputs, please check your datas", 422));
+  }
+
   const placeID = req.params.pid;
   const { title, description } = req.body;
 
@@ -80,9 +86,10 @@ const updatePlace = async (req, res, next) => {
 
 const deletePlace = async (req, res, next) => {
   const placeID = req.params.pid;
-  const placeIndex = DUMMY_PLACES.findIndex(({ id }) => id === placeID);
 
-  DUMMY_PLACES.splice(placeIndex, 1);
+  if (!DUMMY_PLACES.findIndex(({ id }) => id === placeID)) {
+    return next(new HttpError("Could not find a place for that id", 404));
+  }
 
   res.status(200).json({ message: "Deleted Place." });
 };
