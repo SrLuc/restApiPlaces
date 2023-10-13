@@ -7,15 +7,27 @@ const getAllUser = (req, res, next) => {
 };
 
 const signUp = (req, res, next) => {
-  const { email, password } = req.body;
+  const { name, email, password } = req.body;
 
   const newUser = {
     id: uuid(),
+    name: name,
     email: email,
     password: password,
   };
 
-  const user = DUMMY_USERS.push(newUser);
+  const hasUser = DUMMY_USERS.find((p) => p.email === email);
+
+  if (hasUser) {
+    return next(
+      new HttpError(
+        "Credentials already Exists, please put different credentials",
+        409
+      )
+    );
+  }
+
+  DUMMY_USERS.push(newUser);
 
   res.json({ newUser });
 };
